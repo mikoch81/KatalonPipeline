@@ -1,0 +1,9 @@
+/bin/
+/Libs/
+/.settings/
+/.classpath
+/.svn/
+/Reports
+/Drivers
+/.project
+/.gradle
