@@ -17,7 +17,7 @@ pipeline {
         }
         stage ("Build") {
             steps {
-                lock('katalon-docker-images') {
+                lock('katalon_pipeline') {
 
                     sh 'chmod u+x ./build/*.sh'
                     sh './build/clean.sh $KS_VERSION'
