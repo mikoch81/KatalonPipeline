@@ -20,16 +20,19 @@ pipeline {
                 lock('katalon_pipeline') {
 
                     sh 'chmod u+x ./build/*.sh'
+                    echo 'idziemy po chmod'
                     sh './build/clean.sh $KS_VERSION'
                     sh './build/build.sh $KS_VERSION'
                     sh './build/tag.sh $KS_VERSION'
+                    echo 'po clean, build, tag'
 
                     sh 'chmod u+x ./test/project/*.sh'
+                    echo 'po test/project chmod'
                     sh 'cd ./test/project && ./run_chrome.sh $KS_VERSION'
                     sh 'cd ./test/project && ./run_chrome_advanced.sh $KS_VERSION'
                     sh 'cd ./test/project && ./run_firefox.sh $KS_VERSION'
                     archiveArtifacts '**/*.avi'
-
+                    echo 'archiveArtifact'
                     withDockerRegistry([ credentialsId: "docker-hub", url: "https://registry.hub.docker.com" ]) {
                         sh '''
                             ./build/tag.sh $KS_VERSION
